@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment | CarbonX</title>
+
+    <!-- Razorpay JS -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Complete Payment</h2>
+
+    <p><b>Credits:</b> {{ credits }}</p>
+    <p><b>Amount:</b> ₹{{ amount|divisibleby:100 }}</p>
+
+    <button id="pay-btn">Pay Now</button>
+</div>
+
+<script>
+    var options = {
+        "key": "{{ razorpay_key }}",      // public key
+        "amount": "{{ amount }}",         // paise
+        "currency": "INR",
+        "name": "CarbonX",
+        "description": "Carbon Credit Purchase",
+        "order_id": "{{ order_id }}",
+
+        "handler": function (response) {
+            // payment success → send data to backend
+            fetch("/payment-success/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify(response)
+            }).then(() => {
+                window.location.href = "/dashboard/";
+            });
+        }
+    };
+
+    var rzp = new Razorpay(options);
+
+    document.getElementById("pay-btn").onclick = function (e) {
+        rzp.open();
+        e.preventDefault();
+    };
+</script>
+
+</body>
+</html>

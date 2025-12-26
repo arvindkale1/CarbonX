@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- HEADER -->
+    <div class="dash-header">
+        <h2>
+            {% if buyer %}Buyer Dashboard
+            {% elif seller %}Seller Dashboard
+            {% else %}Dashboard{% endif %}
+        </h2>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    {% if pending %}
+        <div class="pending-box">
+            <h3>Approval Pending</h3>
+            <p>Your account is waiting for admin approval.</p>
+        </div>
+    {% endif %}
+
+    {% if seller %}
+        <p><b>Username:</b> {{ profile.user.username }}</p>
+        <p><b>Role:</b> {{ profile.role }}</p>
+        <p><b>Available Credits:</b> {{ demat.credit_balance }}</p>
+        <p><b>Wallet Balance:</b> ₹{{ demat.wallet_balance }}</p>
+
+        <h3>Add Credits</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input type="number" name="add_credits" min="1" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <h3>Transaction History</h3>
+        <table>
+            <tr>
+                <th>Buyer</th>
+                <th>Date</th>
+                <th>Credits</th>
+                <th>Value (₹)</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.buyer.username }}</td>
+                <td>{{ tx.date }}</td>
+                <td>{{ tx.credits }}</td>
+                <td>{{ tx.amount }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No transactions yet</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if buyer %}
+        <p><b>Username:</b> {{ profile.user.username }}</p>
+        <p><b>Role:</b> {{ profile.role }}</p>
+        <p><b>Available Credits:</b> {{ demat.credit_balance }}</p>
+        <p><b>Wallet Balance:</b> ₹{{ demat.wallet_balance }}</p>
+
+        <h3>Available Sellers & Credits</h3>
+
+<table>
+    <tr>
+        <th>Seller Name</th>
+        <th>Available Credits</th>
+        <th>Buy Credits</th>
+    </tr>
+
+    {% for s in sellers %}
+    <tr>
+        <td>{{ s.user.username }}</td>
+        <td>{{ s.credit_balance }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="buy_from" value="{{ s.id }}">
+                <input type="number" name="credits" min="1" max="{{ s.credit_balance }}" required>
+                <button type="submit">Buy</button>
+            </form>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">No sellers available</td>
+    </tr>
+    {% endfor %}
+</table>
+
+        <h3>Transaction History</h3>
+        <table>
+            <tr>
+                <th>Seller</th>
+                <th>Date</th>
+                <th>Credits</th>
+                <th>Value (₹)</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.seller.username }}</td>
+                <td>{{ tx.date }}</td>
+                <td>{{ tx.credits }}</td>
+                <td>{{ tx.amount }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No transactions yet</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

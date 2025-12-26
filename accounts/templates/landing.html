@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CarbonX | Carbon Credit Platform</title>
+
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <script src="{% static 'js/landing.js' %}" defer></script>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="logo">
+        🌿 <span>CarbonX</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="{% url 'register' %}" class="btn-fill">Register</a></li>
+        <li><a href="{% url 'login' %}" class="btn-fill">Login</a></li>
+    </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Building a Sustainable Future</h1>
+        <p>CarbonX enables transparent carbon credit trading to reduce emissions and protect nature.</p>
+        <a href="{% url 'register' %}" class="hero-btn">Get Started</a>
+    </div>
+</section>
+
+<!-- ================= ARTICLES ================= -->
+<section id="articles" class="section dark">
+    <h2>Related Articles</h2>
+
+    <div class="article-grid">
+        <div class="article-card">
+            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6" alt="">
+            <span class="date">Dec 16, 2025</span>
+            <h3>The power of minimum tillage</h3>
+            <p>How soil-friendly practices improve carbon sequestration.</p>
+        </div>
+
+        <div class="article-card">
+            <img src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8" alt="">
+            <span class="date">Dec 05, 2025</span>
+            <h3>Smallholder farmer’s story</h3>
+            <p>A journey towards sustainable agriculture.</p>
+        </div>
+
+        <div class="article-card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="">
+            <span class="date">Nov 24, 2025</span>
+            <h3>Grassland restoration</h3>
+            <p>The hidden power of restoring ecosystems.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= ABOUT US ================= -->
+<section id="about" class="section light">
+    <h2>Our Focus Areas</h2>
+
+    <div class="card-grid">
+        <div class="info-card">
+            <img src="{% static 'images/soil.jpg' %}">
+            <h3>Soil Carbon Credits</h3>
+            <p>Soil carbon credits (SCCs) are tradable offsets earned by farmers who adopt practices that store more carbon (carbon sequestration) or reduce greenhouse gas (GHG) emissions from their soil, with one credit equaling one ton of CO2 equivalent; farmers sell these verified credits on voluntary markets to companies needing to offset their own emissions, creating new income while promoting healthier, more resilient agricultural systems</p>
+        </div>
+
+        <div class="info-card">
+            <img src="{% static 'images/water.jpg' %}">
+            <h3>Water Carbon Credits</h3>
+            <p>Water carbon credits are tradable certificates earned by projects that save or improve water, similar to carbon credits, by reducing emissions or enhancing natural processes (like wetlands) that store carbon, offering a way to fund water conservation/quality and helping companies offset their environmental footprint, linking water management to climate action</p>
+        </div>
+
+        <div class="info-card">
+            <img src="{% static 'images/industrial.jpg' %}">
+            <h3>Industrial Carbon Credits</h3>
+            <p class="centered">Industrial carbon credits are tradable permits, each representing one ton of CO2e reduced or removed, used by industries to meet emission limits in compliance markets or offset voluntary emissions, funding projects like renewables, energy efficiency, and carbon capture to lower overall pollution through 'cap-and-trade' systems or voluntary purchases</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="section contact">
+    <h2>Contact Us</h2>
+    <p>Email: support@carbonx.com</p>
+    <p>Phone: +91 95456 64406</p>
+</section>
+
+<footer>
+    <p>© 2025 CarbonX. All rights reserved.
+    </p>
+    <p>Created By Arvind Kale Patil
+    </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+#header {
+    background: #1b5e20;
+}
+
+.module caption,
+.module h2 {
+    background: #2e7d32 !important;
+    color: #ffffff !important;
+}
+
+button,
+input[type=submit] {
+    background: #2e7d32 !important;
+    color: #ffffff !important;
+}
